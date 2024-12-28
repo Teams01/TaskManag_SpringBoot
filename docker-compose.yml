@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  spring-boot-app:
+    image: your-backend-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+
+  angular-app:
+    image: your-angular-app
+    ports:
+      - "4200:4200"
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1213  # Définir un mot de passe pour le root
+      MYSQL_DATABASE: taskManag
+
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
