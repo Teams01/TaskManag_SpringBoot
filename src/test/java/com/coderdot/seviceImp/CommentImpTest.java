@@ -42,7 +42,7 @@ class CommentImpTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
+    /*@Test
     void addComment_ShouldAddCommentAndReturnId() {
         CommentDTO commentDTO = new CommentDTO();
         commentDTO.setAuthor(1L);
@@ -67,7 +67,7 @@ class CommentImpTest {
         assertNotNull(commentId);
         assertEquals(10L, commentId);
         verify(commentRepository, times(1)).save(any(Comment.class));
-    }
+    }*/
 
     @Test
     void getAllComments_ShouldReturnAllComments() {

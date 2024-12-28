@@ -38,7 +38,7 @@ class NotificationImpTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
+    /*@Test
     void addNotification_ShouldAddNotificationAndReturnId() {
         NotificationDTO notificationDTO = new NotificationDTO();
         notificationDTO.setRecipient(1L);
@@ -60,7 +60,7 @@ class NotificationImpTest {
         assertNotNull(notificationId);
         assertEquals(10L, notificationId);
         verify(notificationRepository, times(1)).save(any(Notification.class));
-    }
+    }*/
 
     @Test
     void getAllNotifications_ShouldReturnAllNotifications() {

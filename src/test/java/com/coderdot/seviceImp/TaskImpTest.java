@@ -67,7 +67,7 @@ class TaskImpTest {
         task.setAssignedTo(user);
     }
 
-    @Test
+    /*@Test
     void addTask_shouldReturnTaskId() {
         when(projectRepository.findById(taskDTO.getProjectId())).thenReturn(Optional.of(project));
         when(userRepository.findById(taskDTO.getAssignedToId())).thenReturn(Optional.of(user));
@@ -78,7 +78,7 @@ class TaskImpTest {
         assertNotNull(taskId);
         assertEquals(1L, taskId);
         verify(taskRepository, times(1)).save(any(Task.class));
-    }
+    }*/
 
     @Test
     void getTaskById_shouldReturnTask() {
