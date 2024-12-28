@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/api/users1")
 public class UserController1 {
     @Autowired
-    private AuthService userService;
+    public AuthService userService;
 
     /**
      * Authentification d'un utilisateur.

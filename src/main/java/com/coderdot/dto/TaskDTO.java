@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,8 +16,9 @@ public class TaskDTO {
     private int progress;
     private String priority;
     private String status;
-    private Date dueDate;
+    private LocalDate dueDate;
     private Long projectId; // ID du projet associé
     private Long assignedToId; // ID de l'utilisateur assigné
+
 
 }

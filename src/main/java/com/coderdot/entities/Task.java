@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -28,8 +29,8 @@ public class Task {
     @Enumerated(EnumType.ORDINAL)
     private taskStatus status;
 
-    @Temporal(TemporalType.DATE)
-    private Date dueDate;
+
+    private LocalDate dueDate;
 
     @ManyToOne
     @JoinColumn(name = "project_id")

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.coderdot.entities.taskPriority.*;
 import static com.coderdot.entities.taskStatus.*;
@@ -47,19 +48,34 @@ public class TaskImp implements TaskService {
         return taskRepository.findById(id).get();
     }
     @Override
-    public Long updateTask( Long id,TaskDTO taskDTO) {
-        Project project = projectRepository.findById(taskDTO.getProjectId()).orElseThrow(()->new IllegalArgumentException("Project not found"));
-        Customer user =  userRepository.findById(taskDTO.getAssignedToId()).orElseThrow(()->new IllegalArgumentException("User not found"));
-        Task taskToUpdate = taskRepository.findById(id).orElseThrow(() ->new IllegalArgumentException("Task not found"));
-        taskToUpdate.setTitle(taskDTO.getTitle());
-        taskToUpdate.setDescription(taskDTO.getDescription());
-        taskToUpdate.setProgress(taskDTO.getProgress());
-        taskToUpdate.setPriority(taskPriority.valueOf(taskDTO.getPriority()));
-        taskToUpdate.setStatus(taskStatus.valueOf(taskDTO.getStatus()));
-        taskToUpdate.setProject(project);
-        taskToUpdate.setAssignedTo(user);
-        taskRepository.save(taskToUpdate);
-        return taskToUpdate.getId();
+    public Long updateTask(Long taskId, TaskDTO taskDTO) {
+        Optional<Task> optionalTask = taskRepository.findById(taskId);
+        if (optionalTask.isPresent()) {
+            Task task = optionalTask.get();
+
+            // Vérifiez si la statut n'est pas null et convertissez, sinon définissez par défaut
+            if (taskDTO.getStatus() != null) {
+                task.setStatus(taskStatus.valueOf(taskDTO.getStatus()));
+            } else {
+                task.setStatus(taskStatus.TODO); // Définir une valeur par défaut
+            }
+
+            if (projectRepository.findById(taskDTO.getProjectId()).isPresent()) {
+                task.setProject(projectRepository.findById(taskDTO.getProjectId()).get());
+            }
+            if (userRepository.findById(taskDTO.getAssignedToId()).isPresent()) {
+                task.setAssignedTo(userRepository.findById(taskDTO.getAssignedToId()).get());
+            }
+
+            task.setTitle(taskDTO.getTitle());
+            task.setDescription(taskDTO.getDescription());
+            task.setPriority(taskPriority.valueOf(taskDTO.getPriority()));
+
+            Task updatedTask = taskRepository.save(task);
+            return updatedTask.getId();
+        } else {
+            throw new RuntimeException("Task not found with id: " + taskId);
+        }
     }
     @Override
     public void deleteTask(Long id) {

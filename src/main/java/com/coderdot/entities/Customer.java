@@ -35,4 +35,6 @@ public class Customer {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
+    public Customer(long l, String johnDoe, String mail) {
+    }
 }
