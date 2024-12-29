@@ -1,0 +1,264 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="row">
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">
+                    Projects done
+                  </h5>
+                  <span class="h2 font-weight-bold mb-0">0</span>
+                </div>
+                <div class="col-auto">
+                  <div
+                    class="icon icon-shape bg-danger text-white rounded-circle shadow"
+                  >
+                    <i class="fas fa-chart-bar"></i>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">
+                    Project In Progress
+                  </h5>
+                  <span class="h2 font-weight-bold mb-0">0</span>
+                </div>
+                <div class="col-auto">
+                  <div
+                    class="icon icon-shape bg-warning text-white rounded-circle shadow"
+                  >
+                    <i class="fas fa-chart-pie"></i>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">
+                    Tasks Done
+                  </h5>
+                  <span class="h2 font-weight-bold mb-0">0</span>
+                </div>
+                <div class="col-auto">
+                  <div
+                    class="icon icon-shape bg-yellow text-white rounded-circle shadow"
+                  >
+                    <i class="fas fa-users"></i>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-6">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">
+                    Tasks In Progress
+                  </h5>
+                  <span class="h2 font-weight-bold mb-0">0</span>
+                </div>
+                <div class="col-auto">
+                  <div
+                    class="icon icon-shape bg-info text-white rounded-circle shadow"
+                  >
+                    <i class="fas fa-percent"></i>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div
+          class="card-header border-0 d-flex justify-content-between align-items-center"
+        >
+          <h2 class="mb-0">WorkSpeaces</h2>
+          <!-- Button trigger modal -->
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            Add WorkSpeaces
+          </button>
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    Add WorkSpeaces
+                  </h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <!-- Display Success or Error Messages -->
+                <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+                <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+                  <div class="card bg-secondary">
+                    <div class="card-body">
+                      <form
+                        [formGroup]="workspaceForm"
+                        (ngSubmit)="addWorkspace()"
+                      >
+                        <div class="form-group">
+                          <label for="name">Name of Workspace</label>
+                          <input
+                            type="text"
+                            id="name"
+                            class="form-control"
+                            placeholder="Enter workspace name"
+                            formControlName="name"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label for="description">Description</label>
+                          <textarea
+                            id="description"
+                            class="form-control"
+                            placeholder="Enter workspace description"
+                            rows="4"
+                            formControlName="description"
+                          ></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                          Save changes
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button type="button" class="btn btn-primary">
+                    Save changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-container">
+          <div class="card11" *ngFor="let project of projects">
+            <a class="card1" [routerLink]="['/project-details', project.id]">
+              <p>{{ project.name }}</p>
+              <p class="small">{{ project.description }}</p>
+              <p class="small">Status :</p>
+
+              <div class="d-flex justify-content-between align-items-center">
+                <!-- Bouton DONE -->
+                <button
+                  type="button"
+                  class="btn btn-sm"
+                  style="border-radius: 20px; width: 150px"
+                  [ngClass]="{
+                    'btn-success': project?.status === 'DONE',
+                    'btn-secondary': project?.status !== 'DONE'
+                  }"
+                >
+                  Done
+                </button>
+
+                <!-- Bouton IN_PROGRESS -->
+                <button
+                  type="button"
+                  class="btn btn-sm"
+                  style="border-radius: 20px; width: 150px"
+                  [ngClass]="{
+                    'btn-warning': project?.status === 'IN_PROGRESS',
+                    'btn-secondary': project?.status !== 'IN_PROGRESS'
+                  }"
+                >
+                  In Progress
+                </button>
+              </div>
+              <div class="go-corner" href="#">
+                <div class="go-arrow">→</div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="card-footer py-4">
+          <nav aria-label="...">
+            <ul class="pagination justify-content-end mb-0">
+              <li class="page-item disabled">
+                <a class="page-link" href="javascript:void(0)" tabindex="-1">
+                  <i class="fas fa-angle-left"></i>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link" href="javascript:void(0)">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)"
+                  >2 <span class="sr-only">(current)</span></a
+                >
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">3</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">
+                  <i class="fas fa-angle-right"></i>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
