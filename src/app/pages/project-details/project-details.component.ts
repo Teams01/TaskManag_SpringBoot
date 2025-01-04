@@ -19,6 +19,8 @@ export class ProjectDetailsComponent implements OnInit {
   loading: boolean = false; // Indicateur de chargement
   errorMessage: string = ""; // Message d'erreur
   successMessage: string = ""; // Message de succès
+  errorMessage1: string = ""; // Message d'erreur
+  successMessage1: string = ""; // Message de succès
 
   constructor(
     private router: Router,
@@ -90,13 +92,13 @@ export class ProjectDetailsComponent implements OnInit {
   // Mettre à jour le workspace
   updateWorkspace(): void {
     if (this.workspaceForm.invalid) {
-      console.error("Le formulaire est invalide.");
+      console.error("The form is invalid.");
       return;
     }
 
     const ownerID = localStorage.getItem("userID"); // Récupération de l'ID utilisateur
     if (!ownerID) {
-      console.error("ID de l'utilisateur introuvable dans le local storage");
+      console.error("User ID not found in local storage");
       return;
     }
 
@@ -108,17 +110,17 @@ export class ProjectDetailsComponent implements OnInit {
     this.loading = true; // Activer l'indicateur de chargement
     this.authService.updateWorkspace(workspaceData, this.idd).subscribe({
       next: (response) => {
-        console.log("Workspace mis à jour avec succès :", response);
-        this.successMessage = "Workspace mis à jour avec succès !"; // Afficher le message de succès
-        this.errorMessage = ""; // Réinitialiser l'erreur
+        console.log("Workspace updated successfully:", response);
+        this.successMessage1 = "Workspace updated successfully!"; // Afficher le message de succès
+        this.errorMessage1 = ""; // Réinitialiser l'erreur
         // Recharger la page ou rediriger
         setTimeout(() => {
           window.location.reload();
         }, 1500); // Attendre un peu avant de recharger la page
       },
       error: (error) => {
-        this.errorMessage = "Erreur lors de la mise à jour du workspace."; // Afficher le message d'erreur
-        this.successMessage = ""; // Réinitialiser le succès
+        this.errorMessage1 = "Error while updating the workspace."; // Afficher le message d'erreur
+        this.successMessage1 = ""; // Réinitialiser le succès
         console.error(error);
         this.loading = false;
       },
@@ -131,8 +133,8 @@ export class ProjectDetailsComponent implements OnInit {
   confirmDelete(): void {
     this.authService.deleteProject(this.idd).subscribe({
       next: () => {
-        console.log("Projet supprimé avec succès");
-        this.successMessage = "Projet supprimé avec succès !"; // Message de succès
+        console.log("Project successfully deleted");
+        this.successMessage = "Project successfully deleted!"; // Message de succès
         this.errorMessage = ""; // Réinitialiser l'erreur
         // Redirigez ou mettez à jour la liste après la suppression
         this.router.navigate(["/dashboard"]).then(() => {
@@ -140,8 +142,8 @@ export class ProjectDetailsComponent implements OnInit {
         });
       },
       error: (err) => {
-        this.errorMessage = "Erreur lors de la suppression du projet.";
-        console.error("Erreur lors de la suppression du projet :", err);
+        this.errorMessage = "Error when deleting the project.";
+        console.error("Error when deleting project:", err);
       },
     });
   }
@@ -149,14 +151,14 @@ export class ProjectDetailsComponent implements OnInit {
   confirmDeleteTask(id): void {
     this.authService.deleteTask(id).subscribe({
       next: () => {
-        console.log("Tâche supprimée avec succès");
-        this.successMessage = "Tâche supprimée avec succès !"; // Message de succès
+        console.log("Task successfully deleted");
+        this.successMessage = "Task successfully removed!"; // Message de succès
         this.errorMessage = ""; // Réinitialiser l'erreur
         window.location.reload();
       },
       error: (err) => {
-        this.errorMessage = "Erreur lors de la suppression de la tâche.";
-        console.error("Erreur lors de la suppression de la tâche :", err);
+        this.errorMessage = "Error when deleting the task.";
+        console.error("Error while deleting the task:", err);
       },
     });
   }
@@ -172,7 +174,7 @@ export class ProjectDetailsComponent implements OnInit {
 
       this.authService.addTask(taskData).subscribe({
         next: () => {
-          this.successMessage = "Tâche ajoutée avec succès !"; // Message de succès
+          this.successMessage = "Task added successfully!"; // Message de succès
           this.errorMessage = ""; // Réinitialiser l'erreur
           // Recharger les tâches et fermer le modal
           this.loadTasks(this.idd);
@@ -180,13 +182,13 @@ export class ProjectDetailsComponent implements OnInit {
           this.modalService.dismissAll(); // Fermer le modal
         },
         error: (err) => {
-          this.errorMessage = "Erreur lors de l'ajout de la tâche."; // Message d'erreur
+          this.errorMessage = "Error while adding the task."; // Message d'erreur
           this.successMessage = ""; // Réinitialiser le succès
-          console.error("Erreur lors de l'ajout de la tâche:", err);
+          console.error("Error when adding the task:", err);
         },
       });
     } else {
-      this.errorMessage = "Veuillez remplir tous les champs requis.";
+      this.errorMessage = "Please fill in all required fields.";
       this.successMessage = "";
     }
   }
