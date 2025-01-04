@@ -13,8 +13,8 @@ import { NgbModal, NgbModalConfig } from "@ng-bootstrap/ng-bootstrap";
 export class DashboardComponent implements OnInit {
   public projects: any[] = []; // Store projects list
   public workspaceForm: FormGroup;
-  public successMessage: string = '';
-  public errorMessage: string = '';
+  public successMessage: string = "";
+  public errorMessage: string = "";
 
   constructor(
     private router: Router,
@@ -33,10 +33,11 @@ export class DashboardComponent implements OnInit {
   }
 
   // Initialize the workspace form
+ 
   initializeWorkspaceForm(): void {
     this.workspaceForm = this.fb.group({
-      name: ["", Validators.required],
-      description: [""]
+      name: ["", Validators.required], // Obligatoire
+      description: ["", Validators.required], // Obligatoire
     });
   }
 
@@ -54,7 +55,7 @@ export class DashboardComponent implements OnInit {
       },
       error: (err) => {
         console.error("Error loading projects:", err);
-      }
+      },
     });
   }
 
@@ -75,7 +76,7 @@ export class DashboardComponent implements OnInit {
       next: (response) => {
         console.log("Workspace created successfully", response);
         this.successMessage = "Workspace created successfully!";
-        this.errorMessage = ''; // Clear any previous error
+        this.errorMessage = ""; // Clear any previous error
         setTimeout(() => {
           this.router.navigate(["/dashboard"]);
         }, 2000);
@@ -85,8 +86,9 @@ export class DashboardComponent implements OnInit {
       error: (error) => {
         console.error("Error creating workspace", error);
         this.errorMessage = "Failed to create workspace. Please try again.";
-        this.successMessage = ''; // Clear any previous success message
-      }
+        this.successMessage = ""; // Clear any previous success message
+      },
     });
   }
+  
 }

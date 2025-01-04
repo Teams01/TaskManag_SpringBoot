@@ -15,7 +15,7 @@ export class ProjectDetailsComponent implements OnInit {
   tasks: any[] = []; // Liste des tâches
   idd!: string; // ID du projet actuel
   workspaceForm!: FormGroup; // Formulaire pour le workspace
-  taskForm: FormGroup; 
+  taskForm: FormGroup;
   loading: boolean = false; // Indicateur de chargement
   errorMessage: string = ""; // Message d'erreur
   successMessage: string = ""; // Message de succès
@@ -169,7 +169,7 @@ export class ProjectDetailsComponent implements OnInit {
         assignedToId: ownerID, // Ajout de l'ID du propriétaire
         projectId: this.idd,
       };
-  
+
       this.authService.addTask(taskData).subscribe({
         next: () => {
           this.successMessage = "Tâche ajoutée avec succès !"; // Message de succès
@@ -190,7 +190,6 @@ export class ProjectDetailsComponent implements OnInit {
       this.successMessage = "";
     }
   }
-  
 
   // Méthodes pour mettre à jour le statut
   setStatusTODO(id: string): void {

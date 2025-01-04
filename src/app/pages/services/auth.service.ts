@@ -24,7 +24,7 @@ export class AuthService {
       headers: this.createAuhtorizationHeader(),
     });
   }
-  
+
   getProjectByuser(): Observable<any> {
     const userID = localStorage.getItem("userID");
     return this.http.get(BASE_URL + "api/users1/getProject/" + userID, {
@@ -67,15 +67,26 @@ export class AuthService {
       headers: this.createAuhtorizationHeader(),
     });
   }
-  updateUserInformation(userId:string ,updatedUserInfo: any): Observable<any> {
-    return this.http.put(BASE_URL + "api/users1/update/"+userId, updatedUserInfo, {
-      headers: this.createAuhtorizationHeader(),
-    });
+  updateUserInformation(userId: string, updatedUserInfo: any): Observable<any> {
+    return this.http.put(
+      BASE_URL + "api/users1/update/" + userId,
+      updatedUserInfo,
+      {
+        headers: this.createAuhtorizationHeader(),
+      }
+    );
   }
-  updatePasswordUser(userId:string ,updatedUserPassword: any): Observable<any> {
-    return this.http.put(BASE_URL + "api/users1/update-password/"+userId, updatedUserPassword, {
-      headers: this.createAuhtorizationHeader(),
-    });
+  updatePasswordUser(
+    userId: string,
+    updatedUserPassword: any
+  ): Observable<any> {
+    return this.http.put(
+      BASE_URL + "api/users1/update-password/" + userId,
+      updatedUserPassword,
+      {
+        headers: this.createAuhtorizationHeader(),
+      }
+    );
   }
 
   updateWorkspace(workspaceData: any, id: string): Observable<any> {
