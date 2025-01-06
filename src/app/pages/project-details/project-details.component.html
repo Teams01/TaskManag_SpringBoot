@@ -277,7 +277,7 @@
             </div>
           </div>
         </div>
-        <!-- modal add Tsask-->
+        <!-- modal update Tsask-->
         <div
           class="modal fade"
           id="ModalupT"
@@ -316,7 +316,7 @@
 
                 <div class="card bg-secondary">
                   <div class="card-body">
-                    <form [formGroup]="taskForm" (ngSubmit)="addTask()">
+                    <form [formGroup]="taskFormUp" (ngSubmit)="updateTask()">
                       <!-- Titre -->
                       <div class="row">
                         <div class="form-group">
@@ -325,46 +325,19 @@
                           >
                           <input
                             type="text"
-                            id="title"
+                            id="title1"
                             class="form-control form-control-alternative"
-                            formControlName="title"
+                            formControlName="title1"
                             placeholder="Task Title"
                           />
                           <div
                             *ngIf="
-                              taskForm.get('title').invalid &&
-                              taskForm.get('title').touched
+                              taskFormUp.get('title1').invalid &&
+                              taskFormUp.get('title1').touched
                             "
                             class="text-danger"
                           >
                             Task title is required.
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Priorité -->
-                      <div class="row">
-                        <div class="form-group">
-                          <label class="form-control-label" for="task-priority"
-                            >Task Priority</label
-                          >
-                          <select
-                            id="task-priority"
-                            class="form-control form-control-alternative form-select"
-                            formControlName="priority"
-                          >
-                            <option value="LOW">LOW</option>
-                            <option value="MEDIUM">MEDIUM</option>
-                            <option value="HIGH">HIGH</option>
-                          </select>
-                          <div
-                            *ngIf="
-                              taskForm.get('priority').invalid &&
-                              taskForm.get('priority').touched
-                            "
-                            class="text-danger"
-                          >
-                            Task priority is required.
                           </div>
                         </div>
                       </div>
@@ -376,16 +349,16 @@
                             >Description</label
                           >
                           <textarea
-                            id="description"
+                            id="description1"
                             class="form-control form-control-alternative"
-                            formControlName="description"
+                            formControlName="description1"
                             rows="4"
                             placeholder="Description of Task"
                           ></textarea>
                           <div
                             *ngIf="
-                              taskForm.get('description').invalid &&
-                              taskForm.get('description').touched
+                              taskFormUp.get('description1').invalid &&
+                              taskFormUp.get('description1').touched
                             "
                             class="text-danger"
                           >
@@ -402,14 +375,14 @@
                           >
                           <input
                             type="date"
-                            id="dueDate"
+                            id="dueDate1"
                             class="form-control form-control-alternative"
-                            formControlName="dueDate"
+                            formControlName="dueDate1"
                           />
                           <div
                             *ngIf="
-                              taskForm.get('dueDate').invalid &&
-                              taskForm.get('dueDate').touched
+                              taskFormUp.get('dueDate1').invalid &&
+                              taskFormUp.get('dueDate1').touched
                             "
                             class="text-danger"
                           >
@@ -430,7 +403,7 @@
                         <button
                           type="submit"
                           class="btn btn-primary"
-                          [disabled]="taskForm.invalid"
+                          [disabled]="taskFormUp.invalid"
                         >
                           Save
                         </button>
@@ -801,7 +774,7 @@
                       <div class="d-flex align-items-center">
                         <button
                           class="edit-button btn-sm"
-                          (click)="updateTask(task.id, task)"
+                          (click)="openUpdateModal(task)"
                           data-bs-toggle="modal"
                           data-bs-target="#ModalupT"
                         >

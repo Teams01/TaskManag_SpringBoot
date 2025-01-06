@@ -19,11 +19,11 @@
       <li class="nav-item" ngbDropdown placement="bottom-right">
         <a class="nav-link pr-0" role="button" ngbDropdownToggle>
           <div class="media align-items-center">
-            <span class="avatar avatar-m rounded-circle">
-              <img alt="Image placeholder" src={{userIn.image}}>
-            </span>
+            
+              <img  class="avatar avatar-m rounded-circle" alt="Image placeholder" src={{userIn.image}}>
+            
             <div class="media-body ml-2 d-none d-lg-block">
-              <span class="mb-0 text-sm  font-weight-bold">{{userIn.lastname}} {{ userIn.firstname}}</span>
+              <span class="mb-0 text-md   text-black font-weight-bold">{{userIn.lastname}} {{ userIn.firstname}}</span>
             </div>
           </div>
         </a>
@@ -35,20 +35,13 @@
             <i class="ni ni-single-02"></i>
             <span>My profile</span>
           </a>
-          <a routerLinkActive="active" [routerLink]="['/user-profile']" class="dropdown-item">
-            <i class="ni ni-settings-gear-65"></i>
-            <span>Settings</span>
-          </a>
-          <a routerLinkActive="active" [routerLink]="['/user-profile']" class="dropdown-item">
+          <a routerLinkActive="active" [routerLink]="['/dashboard']" class="dropdown-item">
             <i class="ni ni-calendar-grid-58"></i>
-            <span>Activity</span>
+            <span>My Workspaces</span>
           </a>
-          <a routerLinkActive="active" [routerLink]="['/user-profile']" class="dropdown-item">
-            <i class="ni ni-support-16"></i>
-            <span>Support</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#!" class="dropdown-item">
+          
+          <div class="dropdown-divider" ></div>
+          <a href="#!" class="dropdown-item"  routerLinkActive="active" [routerLink]="['/login']">
             <i class="ni ni-user-run"></i>
             <span>Logout</span>
           </a>

@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
       (response) => {
         // Message de succès
         this.successMessage =
-          "Inscription réussie! Vous serez redirigé vers la page de connexion.";
+          "Registration successful! You will be redirected to the login page.";
         console.log("Inscription réussie:", response);
 
         // Redirection après un délai
@@ -43,8 +43,8 @@ export class RegisterComponent implements OnInit {
       (error) => {
         // Message d'erreur
         this.errorMessage =
-          "Une erreur s'est produite lors de l'inscription. Veuillez réessayer.";
-        console.error("Erreur lors de l’inscription:", error);
+          "An error occurred during registration. Please try again.";
+        console.error("Error during registration:", error);
       }
     );
   }

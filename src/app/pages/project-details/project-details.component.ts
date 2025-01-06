@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AuthService } from "../services/auth.service";
 import { NgbModal, NgbModalConfig } from "@ng-bootstrap/ng-bootstrap";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { title } from "process";
 
 @Component({
   selector: "app-project-details",
@@ -16,11 +17,13 @@ export class ProjectDetailsComponent implements OnInit {
   idd!: string; // ID du projet actuel
   workspaceForm!: FormGroup; // Formulaire pour le workspace
   taskForm: FormGroup;
+  taskFormUp: FormGroup;
   loading: boolean = false; // Indicateur de chargement
   errorMessage: string = ""; // Message d'erreur
   successMessage: string = ""; // Message de succès
   errorMessage1: string = ""; // Message d'erreur
   successMessage1: string = ""; // Message de succès
+  currentTaskId :string;
 
   constructor(
     private router: Router,
@@ -50,6 +53,11 @@ export class ProjectDetailsComponent implements OnInit {
       priority: ["", Validators.required],
       description: ["", Validators.required],
       dueDate: ["", Validators.required],
+    });
+    this.taskFormUp = this.fb.group({
+      title1: ["", Validators.required], // Champ obligatoire
+      description1: ["", Validators.required],
+      dueDate1: ["", Validators.required],
     });
   }
 
@@ -192,6 +200,33 @@ export class ProjectDetailsComponent implements OnInit {
       this.successMessage = "";
     }
   }
+  updateTask(): void {
+    if (this.taskFormUp.valid) {
+      const taskData = {
+        title :this.taskFormUp.value.title1,
+        description:this.taskFormUp.value.description1,
+        dueDate:this.taskFormUp.value.dueDate1,
+      };
+      this.authService.updateTask(taskData,this.currentTaskId).subscribe({
+        next: () => {
+          this.successMessage = "Task updated successfully!"; // Message de succès
+          this.errorMessage = ""; // Réinitialiser l'erreur
+          // Recharger les tâches et fermer le modal
+          this.loadTasks(this.idd);
+          this.taskForm.reset(); // Réinitialiser le formulaire
+          this.modalService.dismissAll(); // Fermer le modal
+        },
+        error: (err) => {
+          this.errorMessage = "Error while updating the task."; // Message d'erreur
+          this.successMessage = ""; // Réinitialiser le succès
+          console.error("Error when updating the task:", err);
+        },
+      });
+    } else {
+      this.errorMessage = "Please fill in all required fields.";
+      this.successMessage = "";
+    }
+  }
 
   // Méthodes pour mettre à jour le statut
   setStatusTODO(id: string): void {
@@ -232,4 +267,15 @@ export class ProjectDetailsComponent implements OnInit {
       .updatePriorityHIGH(id)
       .subscribe(() => this.loadTasks(this.idd));
   }
+  openUpdateModal(task: any) {
+    // Pré-remplir les valeurs existantes dans le formulaire
+    this.taskFormUp.patchValue({
+      title1: task.title,
+      description1: task.description,
+      dueDate1: task.dueDate,
+    });
+    // Garder une référence de la tâche pour l'update
+    this.currentTaskId = task.id;
+
+}
 }

@@ -8,7 +8,7 @@ const BASE_URL = ["http://localhost:8080/"];
 })
 export class AuthService {
   private baseUrl = "http://localhost:8080/api/task";
-
+  
   constructor(private http: HttpClient) {}
 
   register(signRequest: any): Observable<any> {
@@ -58,6 +58,30 @@ export class AuthService {
 
   getTaskByIdproject(id: string): Observable<any> {
     return this.http.get<any>(`${BASE_URL + "api/projects/tasks"}/${id}`, {
+      headers: this.createAuhtorizationHeader(),
+    });
+  }
+  getNTaskDone(): Observable<any> {
+    const userID = localStorage.getItem("userID");
+    return this.http.get<any>(`${BASE_URL + "api/task/done-count"}/${userID}`, {
+      headers: this.createAuhtorizationHeader(),
+    });
+  }
+  getNTaskInp(): Observable<any> {
+    const userID = localStorage.getItem("userID");
+    return this.http.get<any>(`${BASE_URL + "api/task/inProgress-count"}/${userID}`, {
+      headers: this.createAuhtorizationHeader(),
+    });
+  }
+  getNProjectDone(): Observable<any> {
+    const userID = localStorage.getItem("userID");
+    return this.http.get<any>(`${BASE_URL + "api/projects/done-count"}/${userID}`, {
+      headers: this.createAuhtorizationHeader(),
+    });
+  }
+  getNProjectInp(): Observable<any> {
+    const userID = localStorage.getItem("userID");
+    return this.http.get<any>(`${BASE_URL + "api/projects/inProgress-count"}/${userID}`, {
       headers: this.createAuhtorizationHeader(),
     });
   }
@@ -113,6 +137,11 @@ export class AuthService {
 
   addTask(taskData: any): Observable<any> {
     return this.http.post(BASE_URL + "api/task/add", taskData, {
+      headers: this.createAuhtorizationHeader(),
+    });
+  }
+  updateTask(taskData: any,idtask:string): Observable<any> {
+    return this.http.put(BASE_URL + "api/task/update/"+idtask, taskData, {
       headers: this.createAuhtorizationHeader(),
     });
   }

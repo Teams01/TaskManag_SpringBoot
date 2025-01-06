@@ -15,6 +15,11 @@ export class DashboardComponent implements OnInit {
   public workspaceForm: FormGroup;
   public successMessage: string = "";
   public errorMessage: string = "";
+  public nbrTaskDone: string;
+  public nbrTaskInProgress: string;
+  public nbrProjectDone: string;
+  public nbrProjectInProgress: string;
+
 
   constructor(
     private router: Router,
@@ -30,6 +35,10 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.initializeWorkspaceForm();
     this.loadProjects();
+    this.fnbrProjectDone();
+    this.fnbrProjectInProgress();
+    this.fnbrTaskDone();
+    this.fnbrTaskInProgress();
   }
 
   // Initialize the workspace form
@@ -55,6 +64,51 @@ export class DashboardComponent implements OnInit {
       },
       error: (err) => {
         console.error("Error loading projects:", err);
+      },
+    });
+  }
+  // Load projects from the server
+  fnbrTaskDone(): void {
+    this.authService.getNTaskDone().subscribe({
+      next: (response) => {
+        this.nbrTaskDone = response;
+        console.log("nbrTaskDone loaded:", this.projects);
+      },
+      error: (err) => {
+        console.error("Error loading nbrTaskDone:", err);
+      },
+    });
+  }
+  fnbrTaskInProgress(): void {
+    this.authService.getNTaskInp().subscribe({
+      next: (response) => {
+        this.nbrTaskInProgress = response;
+        console.log("nbrTaskInProgress loaded:", this.projects);
+      },
+      error: (err) => {
+        console.error("Error loading nbrTaskInProgress:", err);
+      },
+    });
+  }
+  fnbrProjectDone(): void {
+    this.authService.getNProjectDone().subscribe({
+      next: (response) => {
+        this.nbrProjectDone= response;
+        console.log("nbrProjectDone loaded:", this.projects);
+      },
+      error: (err) => {
+        console.error("Error loading nbrProjectDone:", err);
+      },
+    });
+  }
+  fnbrProjectInProgress(): void {
+    this.authService.getNProjectInp().subscribe({
+      next: (response) => {
+        this.nbrProjectInProgress = response;
+        console.log("nbrProjectInProgress loaded:", this.projects);
+      },
+      error: (err) => {
+        console.error("Error loading nbrProjectInProgress:", err);
       },
     });
   }
